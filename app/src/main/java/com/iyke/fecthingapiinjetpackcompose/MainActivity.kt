@@ -1,6 +1,7 @@
 package com.iyke.fecthingapiinjetpackcompose
 
 import android.os.Bundle
+import android.widget.Toolbar
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.animateContentSize
@@ -24,6 +25,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.iyke.fecthingapiinjetpackcompose.ui.theme.FecthingApiInJetpackComposeTheme
 
 class MainActivity : ComponentActivity() {
@@ -56,10 +59,10 @@ fun Greeting(name: String) {
             )
         },
         content = {
-           Column {
-               Text(text = "Jokes")
+            Column {
+                Text(text = "Jokes")
 
-           }
+            }
         }
     )
 }
@@ -68,9 +71,21 @@ fun Greeting(name: String) {
 @Composable
 fun DefaultPreview() {
     FecthingApiInJetpackComposeTheme {
-     ExpandableCard(header = "b j edcj ", description ="jcjscbjbb", color = Color.Red)
+
+        val swipeRefreshState = rememberSwipeRefreshState(true)
+
+        Column(Modifier.fillMaxHeight(1f)) {
+          TopAppBar(title = { Text( "fetch api in Jetpack compose")}, backgroundColor = MaterialTheme.colors.background)
+          SwipeRefresh(
+              state = swipeRefreshState,
+              onRefresh = { }
+          ){
+
+          }
+      }
     }
 }
+
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
