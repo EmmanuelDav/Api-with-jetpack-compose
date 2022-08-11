@@ -1,9 +1,11 @@
 package com.iyke.fecthingapiinjetpackcompose
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Toolbar
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
@@ -11,6 +13,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -27,9 +30,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
+import com.iyke.fecthingapiinjetpackcompose.model.Joke
 import com.iyke.fecthingapiinjetpackcompose.ui.theme.FecthingApiInJetpackComposeTheme
+import com.iyke.fecthingapiinjetpackcompose.viewmodel.JokeViewModel
 
 class MainActivity : ComponentActivity() {
+
+    val jokeViewModel by viewModels<JokeViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -39,51 +47,48 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting("Android")
+                    Greeting(jokeViewModel)
                 }
             }
         }
     }
 }
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun Greeting(name: String) {
+fun Greeting(jokeViewModel: JokeViewModel) {
+
+    LaunchedEffect(Unit, block = {
+        jokeViewModel.getTodoList()
+    })
+
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {
                     Row {
-                        Text("Joke Api ")
+                        Text("Joke Api")
                     }
-                },
-            )
+                })
         },
         content = {
-            Column {
-                Text(text = "Jokes")
-
+                if (jokeViewModel.errorMessage.isEmpty()) {
+                    Column(modifier = Modifier.padding(16.dp)) {
+                        LazyColumn(modifier = Modifier.fillMaxHeight()) {
+                            itemsIndexed(items = jokeViewModel.todoList) { index, item ->
+                                ExpandableCard(
+                                    header = item.joke,
+                                    description = item.jokeDetails,
+                                    color = Color.White
+                                )
+                            }
+                        }
+                    }
+                }else{
+                    Text(text = jokeViewModel.errorMessage)
+                }
             }
-        }
     )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    FecthingApiInJetpackComposeTheme {
-
-        val swipeRefreshState = rememberSwipeRefreshState(true)
-
-        Column(Modifier.fillMaxHeight(1f)) {
-          TopAppBar(title = { Text( "fetch api in Jetpack compose")}, backgroundColor = MaterialTheme.colors.background)
-          SwipeRefresh(
-              state = swipeRefreshState,
-              onRefresh = { }
-          ){
-
-          }
-      }
-    }
 }
 
 
