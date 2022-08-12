@@ -5,22 +5,18 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 
-
 data class Joke(
-    @SerializedName("setup", alternate = ["joke"])
-    var joke: String,
-    @SerializedName("delivery")
-    var jokeDetails: String
+    var setUp: String,
+    var delivery: String
 )
 
-const val BASE_URL = "https://v2.jokeapi.dev/joke/Any?amount=10/"
+const val BASE_URL = "https://v2.jokeapi.dev/joke/Any?type=twopart&amount=8/"
 
 interface APIService {
     @GET("jokes")
     suspend fun getTodos(): List<Joke>
 
     companion object {
-
         var apiService: APIService? = null
         fun getInstance(): APIService {
             if (apiService == null) {

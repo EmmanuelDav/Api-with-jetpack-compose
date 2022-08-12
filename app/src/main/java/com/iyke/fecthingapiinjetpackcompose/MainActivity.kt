@@ -28,9 +28,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.google.accompanist.swiperefresh.SwipeRefresh
-import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
-import com.iyke.fecthingapiinjetpackcompose.model.Joke
 import com.iyke.fecthingapiinjetpackcompose.ui.theme.FecthingApiInJetpackComposeTheme
 import com.iyke.fecthingapiinjetpackcompose.viewmodel.JokeViewModel
 
@@ -85,9 +82,9 @@ fun Greeting(jokeViewModel: JokeViewModel) {
                         LazyColumn(modifier = Modifier.fillMaxHeight()) {
                             itemsIndexed(items = jokeViewModel.todoList) { index, item ->
                                 ExpandableCard(
-                                    header = item.joke,
-                                    description = item.jokeDetails,
-                                    color = Color.White
+                                    header = item.setUp,
+                                    description = item.delivery,
+                                    color = Color.Blue
                                 )
                             }
                         }
