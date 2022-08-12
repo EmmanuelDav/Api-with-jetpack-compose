@@ -13,13 +13,14 @@ data class Joke(
     var jokeDetails: String
 )
 
-const val BASE_URL = "https://v2.jokeapi.dev/joke/Any?amount=10"
+const val BASE_URL = "https://v2.jokeapi.dev/joke/Any?amount=10/"
 
 interface APIService {
     @GET("jokes")
     suspend fun getTodos(): List<Joke>
 
     companion object {
+
         var apiService: APIService? = null
         fun getInstance(): APIService {
             if (apiService == null) {

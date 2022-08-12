@@ -54,6 +54,14 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview() {
+    val jokeViewModel = JokeViewModel()
+    FecthingApiInJetpackComposeTheme {
+        Greeting(jokeViewModel)
+    }
+}
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun Greeting(jokeViewModel: JokeViewModel) {
