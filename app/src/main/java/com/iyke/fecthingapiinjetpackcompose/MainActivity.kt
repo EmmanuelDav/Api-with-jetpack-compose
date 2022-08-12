@@ -45,6 +45,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
                     Greeting(jokeViewModel)
+                    jokeViewModel.getTodoList()
                 }
             }
         }
