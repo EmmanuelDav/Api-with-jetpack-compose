@@ -1,4 +1,4 @@
-#fetching an Api using jetpack compose
+# fetching an Api using jetpack compose
 
 demo to an article on medium showing how to fetch api with jetpack compose
 
