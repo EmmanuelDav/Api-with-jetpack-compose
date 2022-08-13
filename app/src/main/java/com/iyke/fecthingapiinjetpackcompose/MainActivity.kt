@@ -28,8 +28,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.iyke.fecthingapiinjetpackcompose.ui.theme.FecthingApiInJetpackComposeTheme
 import com.iyke.fecthingapiinjetpackcompose.viewmodel.JokeViewModel
+import kotlinx.coroutines.delay
 
 class MainActivity : ComponentActivity() {
 
@@ -60,6 +63,7 @@ fun DefaultPreview() {
         Greeting(jokeViewModel)
     }
 }
+
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun Greeting(jokeViewModel: JokeViewModel) {
@@ -78,6 +82,12 @@ fun Greeting(jokeViewModel: JokeViewModel) {
                 })
         },
         content = {
+            var isRefreshing by remember { mutableStateOf(false) }
+            val swipeRefreshState = rememberSwipeRefreshState(isRefreshing)
+            SwipeRefresh(state = swipeRefreshState, onRefresh = {
+                jokeViewModel.getTodoList()
+                isRefreshing = true
+            }) {
                 if (jokeViewModel.errorMessage.isEmpty()) {
                     Column(modifier = Modifier.padding(16.dp)) {
                         LazyColumn(modifier = Modifier.fillMaxHeight()) {
@@ -90,10 +100,17 @@ fun Greeting(jokeViewModel: JokeViewModel) {
                             }
                         }
                     }
-                }else{
+                } else {
                     Text(text = jokeViewModel.errorMessage)
                 }
             }
+            LaunchedEffect(isRefreshing) {
+                if (isRefreshing) {
+                    delay(1000L)
+                    isRefreshing = false
+                }
+            }
+        }
     )
 }
 

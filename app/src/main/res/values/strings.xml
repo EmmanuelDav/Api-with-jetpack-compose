@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">Fecthing Api in JetpackCompose</string>
+    <string name="app_name">fetching Api in JetpackCompose</string>
     <string name="title_activity_main">MainActivity</string>
 </resources>
