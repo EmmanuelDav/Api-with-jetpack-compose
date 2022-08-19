@@ -23,7 +23,7 @@ const val BASE_URL = "https://v2.jokeapi.dev/joke/"
 private var httpClient = OkHttpClient.Builder().build()
 
 interface APIService {
-    @GET("Any?type=twopart&amount=10")
+    @GET("Programming?type=twopart&amount=10")
     fun getTodos(): Call<All>
 
     companion object {
