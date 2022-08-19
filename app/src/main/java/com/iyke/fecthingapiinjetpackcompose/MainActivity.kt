@@ -135,7 +135,6 @@ fun ExpandableCard(
                 )
             )
             .padding(8.dp),
-        backgroundColor = Color.White,
         shape = RoundedCornerShape(8.dp), // Shape
         border = BorderStroke(stroke.dp, color), // Stroke Width and Color
         onClick = {
@@ -155,10 +154,9 @@ fun ExpandableCard(
             ) {
                 Text(
                     text = header,
-                    color = color, // Header Color
                     fontSize = 20.sp,
                     textAlign = TextAlign.Start,
-                    fontWeight = FontWeight.Normal,
+                    fontWeight = FontWeight.Bold,
                     modifier = Modifier
                         .weight(.9f)
                         .padding(start = 8.dp)
@@ -182,7 +180,6 @@ fun ExpandableCard(
             if (expand) {
                 Text(
                     text = description,
-                    color = color, // Description Color
                     fontSize = 16.sp,
                     textAlign = TextAlign.Start,
                     fontWeight = FontWeight.Normal,
