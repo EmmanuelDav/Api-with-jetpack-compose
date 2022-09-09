@@ -7,3 +7,6 @@ demo to an article on medium showing how to fetch api with jetpack compose
 <img src="app/screenshot/Screenshot_20220813-212843.png" width="30%" vspace="10" hspace="10">
 <img src="app/screenshot/Screenshot_20220813-212851.png" width="30%" vspace="10" hspace="10">
 <br>
+
+### Article
+*   [Medium](https://medium.com/@emmanueldav/fetching-data-from-api-in-jetpack-compose-5598fa55428d)
